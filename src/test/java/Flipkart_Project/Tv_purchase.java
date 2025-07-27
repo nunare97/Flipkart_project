@@ -63,7 +63,7 @@ public class Tv_purchase {
 		redmitv.click();
 		
 		Set<String> allWindows=driver.getWindowHandles();
-		List<String> l=new ArrayList(allWindows);
+		List<String> l = new ArrayList<>(allWindows);
 		driver.switchTo().window(l.get(1));
 	}
 	@Test
@@ -75,10 +75,10 @@ public class Tv_purchase {
 	@Ignore
 	@Test
 	public void method5() {
-		if(expectedresult == redmii) {
-			System.out.println("validation pass");
-		}else {
-			System.out.println("validation failed");
+		if (expectedresult.equals(redmii)) {
+		    System.out.println("Validation passed");
+		} else {
+		    System.out.println("Validation failed");
 		}
 	}
 

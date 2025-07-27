@@ -1,5 +1,6 @@
 package Flipkart_Project;
 
+import java.time.Duration;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
@@ -13,11 +14,15 @@ import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.edge.EdgeDriver;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
 public class Mobile_purchase {
 	static WebDriver  driver;
 	static String expectedresult,iphone16;
 	static long start;
+	static WebDriverWait wait;
+	static WebElement searchbar,element,iphone1;
 	@BeforeClass
 	public static void browserSetup()
 	{
@@ -33,16 +38,16 @@ public class Mobile_purchase {
 		}
 	}
 	@Before
-    public void startTime() {
-        start = System.currentTimeMillis();
-        System.out.println("before");
-    }
- 
-    @After
-    public void endTime() {
-        long end = System.currentTimeMillis();
-        System.out.println("After total time = " + (end - start));
-    }
+	public void startTime() {
+		start = System.currentTimeMillis();
+		System.out.println("before");
+	}
+
+	@After
+	public void endTime() {
+		long end = System.currentTimeMillis();
+		System.out.println("After total time = " + (end - start));
+	}
 	@Test
 	public void method1() {
 		//flipkart launch
@@ -51,35 +56,35 @@ public class Mobile_purchase {
 	@Test
 	public void method2() {
 		//search iphone 16 
-		WebElement searchbar=driver.findElement(By.xpath("//*[@id=\"container\"]/div/div[1]/div/div/div/div/div/div/div/div/div/div[1]/div/div/header/div[1]/div[2]/form/div/div/input"));
+		 searchbar=driver.findElement(By.xpath("//*[@id=\"container\"]/div/div[1]/div/div/div/div/div/div/div/div/div/div[1]/div/div/header/div[1]/div[2]/form/div/div/input"));
 		searchbar.sendKeys("iphone 16",Keys.ENTER);
 	}
 	@Test
 	public void method3() {
-		WebElement iphone1=driver.findElement(By.xpath("(//div[contains(text(),'iPhone')])[1]"));
-	  expectedresult=iphone1.getText();
+		iphone1=driver.findElement(By.xpath("(//div[contains(text(),'iPhone')])[1]"));
+		expectedresult=iphone1.getText();
 		System.out.println(expectedresult);
 		iphone1.click();
-		
+
 		Set<String> allWindows=driver.getWindowHandles();
-		List<String> l=new ArrayList(allWindows);
+		List<String> l = new ArrayList<>(allWindows);
 		driver.switchTo().window(l.get(1));
 	}
 	@Test
 	public void method4() {
-		iphone16=driver.findElement(By.xpath("//span[@class='VU-ZEz']")).getText();
-		System.out.println(iphone16);
-		 
+		wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+		element = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//span[@class='VU-ZEz']")));
+		iphone16 = element.getText();
 	}
 	@Test
 	public void method5() {
-		if(expectedresult == iphone16) {
+		if(expectedresult.equals(iphone16)) {
 			System.out.println("validation pass");
 		}else {
 			System.out.println("validation failed");
 		}
 	}
 
-	
+
 
 }
